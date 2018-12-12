@@ -97,20 +97,45 @@ int pop_back_list( list * l)
     return value;
 }
 
-//Esta es la función, básicamente, iteramos la lista, y vemos hasta donde llega NULL, NULL va a ser siempre el último elemento por la forma en la que se crea con las funciones que hizo él.
-int size_list(list * l)
+
+
+float promedio(list * l)
 {
     list_node * p = l->head;
     if (p == NULL)
         {return NULL;}
-    int numero;
+    float promedio = 0.0;
+    int numero = 0;
     while( p!= NULL)
     {
         numero++;
+        promedio += p->value;
         p = p->next;
     }
-    return numero;
+    promedio = promedio / numero;
+    return promedio;
 }
+
+
+//Lo mismo que para el promedio, usando la fórmula de la suma del cuadrado de los elementos entre n menos la media al cuadrado.
+float varianza(list * l)
+{
+    list_node * p = l->head;
+    if (p == NULL)
+        {return NULL;}
+    float varianza = 0.0;
+    int numero = 0;
+    while( p!= NULL)
+    {
+        numero++;
+        varianza += (p->value)*(p->value);
+        p = p->next;
+    }
+    varianza /= numero;
+    varianza -= promedio(l)*promedio(l);
+    return varianza;
+}
+
 
 int main()
 {
@@ -121,11 +146,21 @@ int n = 15;
 
 for (int i = 0; i < n; ++i)
 {
-    push_back_list(l, i);
+    push_back_list(l, i+1);
 }
 
-//Aquí usamos la función del ejercicio 1.
-printf("Esta lista tiene %d elementos.\n",size_list(l));
+
+/*list_node * p = l->head;
+while( p!= NULL)
+{
+//printf("%d\n", pop_front_list(l));
+//printf("%d\n", pop_back_list(l));
+    printf("%d\n", p->value);
+    p = p->next;
+}*/
+
+printf("%f\n", varianza(l));
 
 return 0;
+
 }

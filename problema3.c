@@ -97,20 +97,24 @@ int pop_back_list( list * l)
     return value;
 }
 
-//Esta es la función, básicamente, iteramos la lista, y vemos hasta donde llega NULL, NULL va a ser siempre el último elemento por la forma en la que se crea con las funciones que hizo él.
-int size_list(list * l)
+//Esta función recorre las posiciones, hasta llegar a la correcta, y regresa esa dirección
+list_node * find_list(list * l, int pos)
 {
     list_node * p = l->head;
     if (p == NULL)
         {return NULL;}
-    int numero;
-    while( p!= NULL)
+    int i = 1;
+    while( i < pos && p !=NULL )
     {
-        numero++;
         p = p->next;
+        i++;
     }
-    return numero;
+    if (p!= NULL)
+        {return p;}
+    else
+        {return NULL;}
 }
+
 
 int main()
 {
@@ -121,11 +125,20 @@ int n = 15;
 
 for (int i = 0; i < n; ++i)
 {
-    push_back_list(l, i);
+    push_back_list(l, 20);
 }
 
-//Aquí usamos la función del ejercicio 1.
-printf("Esta lista tiene %d elementos.\n",size_list(l));
+
+//Aquí usamos la función del ejercicio 2 para pos 5.
+
+int k = 5;
+
+if (find_list(l, k))
+    {printf("Esta lista tiene elemento en la posición %d\n",k);
+    printf("%p\n", find_list(l,k));}
+else
+    printf("Esta lista no tiene elemento en la posición %d\n",k);
+
 
 return 0;
 }
