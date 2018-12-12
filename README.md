@@ -2,4 +2,8 @@
 
 Cosas que faltan:
 
-- **Todo el proyecto**
+- ¿Vamos a poner todo el código que dio él en cada programa?
+- Revisar varianza.
+- Revisar códigos.
+- Poner comentarios.
+- ¿Revisar guia de estilo?
