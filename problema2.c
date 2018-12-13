@@ -1,3 +1,10 @@
+/*
+ * Problema 2. Usando una lista simplemente enlazada escribir una función
+ * list_node * find_list(list * l, int value), la cual dada una lista y un valor de la lista
+ * encuentre el valor y retorne la dirección de memoria del nodo o NULL si el valor no se
+ * encuentra. Utilize un enfoque iterativo.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -97,18 +104,20 @@ int pop_back_list( list * l)
     return value;
 }
 
-//Esta función solo busca donde está el que tiene el valor value y regresa la dirección
+/*
+ * Esta función regresa la dirección de memoria del nodo que posee el valor value, para esto,
+ * recorremos la lista iterativamente buscando un nodo que contenga el valor ingresado,
+ * si este no se encuentra la función regresa NULL.
+ */
 list_node * find_list(list * l, int value)
 {
     list_node * p = l->head;
     if (p == NULL)
         {return NULL;}
-    while( p!= NULL)
+    while(p!= NULL)
     {
         if ( p->value == value)
-        {
-            return p;
-        }
+            {return p;}
         p = p->next;
     }
     return NULL;
@@ -117,26 +126,19 @@ list_node * find_list(list * l, int value)
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    // Aquí buscamos el entero k en la lista, luego comprobamos si está o no en ella.
+    int k = 8;
+    if (find_list(l, k))
+        {printf("Esta lista tiene el elemento %d.\n",k);
+        printf("La dirección del nodo es %p.\n", find_list(l,k));}
+    else
+        {printf("Esta lista no tiene el elemento %d\n",k);}
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, i);
-}
-
-//Aquí usamos la función del ejercicio 2 para value 5.
-
-int k = 5;
-
-if (find_list(l, k))
-    {printf("Esta lista tiene el elemento %d\n",k);
-    printf("%p\n", find_list(l,k));}
-else
-    printf("Esta lista no tiene el elemento %d\n",k);
-
-
-return 0;
+    return 0;
 }

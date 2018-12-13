@@ -1,7 +1,14 @@
+/*
+ * Problema 9. Modifique la lista simplemente enlazada para que tenga valores tipo caracteres
+ * y escribir una función bool palindromo(list * l) que devuelva si la lista de caracteres
+ * es un palíndromo.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
 
+// Primero cambiamos todos los datos int value, por char value, para usar caracteres.
 struct list_node
 {
     char value;
@@ -97,16 +104,18 @@ char pop_back_list( list * l)
     return value;
 }
 
+/*
+ * Esta función auxiliar regresa la lista ingresada al revés, para hacer esto, crea una
+ * lista vacía y empieza a recorrer la lista original. Ubicamos estos datos en la nueva
+ * lista usando push_front_list, para crearla al revés.
+ */
 list * reverse(list * l)
 {
     list_node * p = l->head;
     list * lAux = create_list();
     if (p == NULL)
-    {
-        return lAux;
-    }
-
-    while( p!= NULL)
+        {return lAux;}
+    while(p!= NULL)
     {
         push_front_list(lAux, p->value);
         p = p->next;
@@ -114,20 +123,23 @@ list * reverse(list * l)
     return lAux;
 }
 
+/*
+ * Esta función regresa true si la lista de caracteres es un palíndromo, para hacer esto
+ * comparamos la lista con ella misma pero al revés, si estas son iguales, la lista de
+ * caracteres es un palíndromo.
+ */
 bool palindromo(list * l)
 {
     list * lAux =  reverse(l);
     list_node * p = l->head;
     list_node * pAux = lAux->head;
     if (p == NULL)
-    {
-        return false;
-    }
+        {return false;}
     else
-        while( p!= NULL)
+        while(p!= NULL)
         {
             if(p->value != pAux->value)
-                return false;
+                {return false;}
             p = p->next;
             pAux = pAux->next;
         }
@@ -137,37 +149,20 @@ bool palindromo(list * l)
 
 int main()
 {
+    list * l = create_list();
+    // Esto crea una lista con los elementos de letras
+    char letras[5] = {'a', 'p', 'o', 'p', 'a'};
+    push_back_list(l, letras[0]);
+    push_back_list(l, letras[1]);
+    push_back_list(l, letras[2]);
+    push_back_list(l, letras[3]);
+    push_back_list(l, letras[4]);
 
-list * l = create_list();
+    // Comprobamos si la lista de caracteres es un palíndromo.
+    if(palindromo(l))
+        printf("La lista de caracteres es un palíndromo\n");
+    else
+        printf("La lista de caracteres no es un palíndromo\n");
 
-//Esto crea una lista con elementos
-
-char greeting[5] = {'H', 'e', 'l', 'e', 'H'};
-
-push_back_list(l, greeting[0]);
-push_back_list(l, greeting[1]);
-push_back_list(l, greeting[2]);
-push_back_list(l, greeting[3]);
-push_back_list(l, greeting[4]);
-
-
-list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%c\n", p->value);
-    p = p->next;
-}
-
-
-
-if(palindromo(l))
-    printf("Es Palindromo\n");
-else
-    printf("No es Palindromo\n");
-
-
-return 0;
-
+    return 0;
 }

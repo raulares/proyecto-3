@@ -1,3 +1,8 @@
+/*
+ * Problema 6. Usando una lista simplemente enlazada escribir una función
+ * int maximo(list * l) la cual calcule el máximo de los valores de los nodos de la lista.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -98,14 +103,18 @@ int pop_back_list( list * l)
 }
 
 
-//Lo mismo que la anterior, pero con máximo.
+/*
+ * Esta función regresa el máximo valor de los elementos de la lista, para esto, recorremos
+ * la lista iterativamente, y comprobamos si cada elemento es mayor que el máximo, el cual
+ * iniciamos con el mínimo valor posible, y si es mayor, lo cambiamos con el valor del nodo.
+ */
 int maximo(list * l)
 {
     list_node * p = l->head;
     if (p == NULL)
         {return NULL;}
     int maximo = INT_MIN;
-    while( p!= NULL)
+    while(p!= NULL)
     {
         if (p->value > maximo)
             {maximo = p->value;}
@@ -117,30 +126,14 @@ int maximo(list * l)
 
 int main()
 {
-list * l = create_list();
-//push_front_list(l, 5);
-//push_front_list(l, 3);
-//push_front_list(l, 3);
+    list * l = create_list();
+    // Esto crea una lista con n elementos n,n-1,n-2,...,1.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, 15-i);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    // Imprimimos el máximo valor de la lista.
+    printf("El máximo valor de la lista es %d.\n", maximo(l));
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, 15-i);
-}
-
-/*list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%d\n", p->value);
-    p = p->next;
-}*/
-
-printf("%d\n", maximo(l));
-
-return 0;
-
+    return 0;
 }

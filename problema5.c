@@ -1,3 +1,8 @@
+/*
+ * Problema 5. Usando una lista simplemente enlazada escribir una función
+ * float promedio(list * l) la cual calcule el promedio de los valores de los nodos de la lista.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -97,8 +102,12 @@ int pop_back_list( list * l)
     return value;
 }
 
-
-//Basicamente, se recorre la lista sumando cada dato y llevando el contador de cuantos, luego BUM.
+/*
+ * Esta función regresa el promedio de los elementos de la lista, para esto, recorre la lista
+ * iterativamente y lleva el contador numero que cuenta la cantidad de elementos, y el flotante
+ * promedio, en el cual primero se suman todos los valores y luego se dividen entre número para
+ * obtener el promedio.
+ */
 float promedio(list * l)
 {
     list_node * p = l->head;
@@ -106,7 +115,7 @@ float promedio(list * l)
         {return NULL;}
     float promedio = 0.0;
     int numero = 0;
-    while( p!= NULL)
+    while(p!= NULL)
     {
         numero++;
         promedio += p->value;
@@ -119,28 +128,14 @@ float promedio(list * l)
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    // Imprimimos el promedio de la lista.
+    printf("El promedio es %f.\n", promedio(l));
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, i+1);
-}
-
-
-/*list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%d\n", p->value);
-    p = p->next;
-}*/
-
-printf("%f\n", promedio(l));
-
-return 0;
-
+    return 0;
 }

@@ -1,3 +1,10 @@
+/*
+ * Problema 3. Usando una lista simplemente enlazada escribir una función
+ * list_node * find_list(list * l, int pos) la cual dada una lista simplemente enlazada y
+ * una posición retorne la dirección del nodo que está en la posición pos. Si no es posible
+ * encontrar el nodo se debe retornar NULL.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -97,14 +104,23 @@ int pop_back_list( list * l)
     return value;
 }
 
-//Esta función recorre las posiciones, hasta llegar a la correcta, y regresa esa dirección
+/*
+ * Esta función regresa la dirección de memoria del nodo que está en la posición pos, para esto,
+ * recorremos la lista iterativamente hasta alcanzar la posición pos, si esta no se encuentra en
+ * la lista, la función regresa NULL.
+ */
 list_node * find_list(list * l, int pos)
 {
     list_node * p = l->head;
     if (p == NULL)
         {return NULL;}
+    if (pos <=0)\
+    {
+        printf("La posición %d no es válida.\n", pos);
+        return NULL;
+    }
     int i = 1;
-    while( i < pos && p !=NULL )
+    while(i < pos && p !=NULL )
     {
         p = p->next;
         i++;
@@ -118,27 +134,19 @@ list_node * find_list(list * l, int pos)
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    // Aquí buscamos la dirección de la posición k, luego comprobamos si está o no en la lista.
+    int k = 13;
+    if (find_list(l, k))
+        {printf("Esta lista tiene un elemento en la posición %d.\n",k);
+        printf("El elemento es %p.\n", find_list(l,k));}
+    else
+        {printf("Esta lista no tiene un elemento en la posición %d.\n",k);}
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, 20);
-}
-
-
-//Aquí usamos la función del ejercicio 2 para pos 5.
-
-int k = 5;
-
-if (find_list(l, k))
-    {printf("Esta lista tiene elemento en la posición %d\n",k);
-    printf("%p\n", find_list(l,k));}
-else
-    printf("Esta lista no tiene elemento en la posición %d\n",k);
-
-
-return 0;
+    return 0;
 }

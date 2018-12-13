@@ -1,3 +1,8 @@
+/*
+ * Problema 1. Usando una lista simplemente enlazada escribir una función int size_list(list * l),
+ * que calcule y retorne el número de elementos de la lista. Nota: No usar la propiedad size.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -97,14 +102,17 @@ int pop_back_list( list * l)
     return value;
 }
 
-//Esta es la función, básicamente, iteramos la lista, y vemos hasta donde llega NULL, NULL va a ser siempre el último elemento por la forma en la que se crea con las funciones que hizo él.
+/*
+ * Esta función regresa el número de elementos de la lista, para esto, recorre la lista
+ * iterativamente y lleva el contador numero, para recordar la cantidad de elementos contados.
+ */
 int size_list(list * l)
 {
     list_node * p = l->head;
     if (p == NULL)
-        {return NULL;}
+        {return 0;}
     int numero;
-    while( p!= NULL)
+    while(p!= NULL)
     {
         numero++;
         p = p->next;
@@ -112,20 +120,16 @@ int size_list(list * l)
     return numero;
 }
 
+
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    printf("Esta lista tiene %d elementos.\n",size_list(l));
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, i);
-}
-
-//Aquí usamos la función del ejercicio 1.
-printf("Esta lista tiene %d elementos.\n",size_list(l));
-
-return 0;
+    return 0;
 }

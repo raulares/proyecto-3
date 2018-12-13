@@ -1,3 +1,8 @@
+/*
+ * Problema 8. Usando una lista simplemente enlazada escribir una función
+ * float varianza(list * l) la cual calcule la varianza de los valores de los nodos de la lista.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -97,8 +102,7 @@ int pop_back_list( list * l)
     return value;
 }
 
-
-
+// Para crear la función varianza, usaremos la función promedio del problema 5.
 float promedio(list * l)
 {
     list_node * p = l->head;
@@ -106,7 +110,7 @@ float promedio(list * l)
         {return NULL;}
     float promedio = 0.0;
     int numero = 0;
-    while( p!= NULL)
+    while(p!= NULL)
     {
         numero++;
         promedio += p->value;
@@ -116,8 +120,12 @@ float promedio(list * l)
     return promedio;
 }
 
-
-//Lo mismo que para el promedio, usando la fórmula de la suma del cuadrado de los elementos entre n menos la media al cuadrado.
+/*
+ * Esta función regresa la varianza de los elementos de la lista, para esto, recorre la lista
+ * iterativamente y lleva el contador numero que cuenta la cantidad de elementos, y el flotante
+ * varianza, en el cual primero se suman los cuadrados de los valores y se dividen entre el
+ * numero de ellos, luego, se le resta el promedio al cuadrado y se obtiene la varianza.
+ */
 float varianza(list * l)
 {
     list_node * p = l->head;
@@ -125,7 +133,7 @@ float varianza(list * l)
         {return NULL;}
     float varianza = 0.0;
     int numero = 0;
-    while( p!= NULL)
+    while(p!= NULL)
     {
         numero++;
         varianza += (p->value)*(p->value);
@@ -139,28 +147,14 @@ float varianza(list * l)
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    // Imprimimos la varianza de la lista.
+    printf("La varianza es %f.\n", varianza(l));
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, i+1);
-}
-
-
-/*list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%d\n", p->value);
-    p = p->next;
-}*/
-
-printf("%f\n", varianza(l));
-
-return 0;
-
+    return 0;
 }

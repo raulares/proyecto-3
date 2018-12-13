@@ -1,7 +1,14 @@
+/*
+ * Problema 10. Modifique la lista doblemente enlazada para que tenga valores tipo caracteres
+ * y escribir una función bool palindromo(list * l) que devuelva si la lista de caracteres
+ * es un palíndromo.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
 
+// Primero cambiamos todos los datos int value, por char value, para usar caracteres.
 struct list_node
 {
     char value;
@@ -127,13 +134,17 @@ char pop_back_list(list * l)
     }
 }
 
-
+/*
+ * Esta función regresa true si la lista de caracteres es un palíndromo, para hacer esto
+ * iteramos la lista en dos direcciones, del comienzo y del final, y comparamos sus valores
+ * hasta llegar a la mitad, si son todos iguales, la lista de caracteres es un palíndromo.
+ */
 bool palindromo(list * l)
 {
     list_node * pDer = l->head;
     list_node * pIzq = l->tail;
-    if( pDer == NULL)
-        return false;
+    if(pDer == NULL)
+        {return false;}
     else
     {
         for (int i = 1; i <= l->size / 2; i++)
@@ -145,38 +156,24 @@ bool palindromo(list * l)
         }
         return true;
     }
-
 }
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con los elementos de letras
+    char letras[5] = {'a', 'p', 'o', 'p', 'a'};
+    push_back_list(l, letras[0]);
+    push_back_list(l, letras[1]);
+    push_back_list(l, letras[2]);
+    push_back_list(l, letras[3]);
+    push_back_list(l, letras[4]);
 
-//Esto crea una lista con elementos
+    // Comprobamos si la lista de caracteres es un palíndromo.
+    if(palindromo(l))
+        printf("La lista de caracteres es un palíndromo\n");
+    else
+        printf("La lista de caracteres no es un palíndromo\n");
 
-char greeting[5] = {'H', 'e', 'l', 'e', 'H'};
-
-push_back_list(l, greeting[0]);
-push_back_list(l, greeting[1]);
-push_back_list(l, greeting[2]);
-push_back_list(l, greeting[3]);
-push_back_list(l, greeting[4]);
-
-list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%c\n", p->value);
-    p = p->next;
-}
-
-
-if(palindromo(l))
-    printf("Es Palindromo\n");
-else
-    printf("No es Palindromo\n");
-
-
-return 0;
+    return 0;
 }

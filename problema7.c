@@ -1,3 +1,8 @@
+/*
+ * Problema 7. Usando una lista simplemente enlazada escribir una función
+ * int minimo(list * l) la cual calcule el minimo de los valores de los nodos de la lista.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -98,14 +103,18 @@ int pop_back_list( list * l)
 }
 
 
-//Same spiel
+/*
+ * Esta función regresa el mínimo valor de los elementos de la lista, para esto, recorremos
+ * la lista iterativamente, y comprobamos si cada elemento es menor que el mínimo, el cual
+ * iniciamos con el máximo valor posible, y si es menor, lo cambiamos con el valor del nodo.
+ */
 int minimo(list * l)
 {
     list_node * p = l->head;
     if (p == NULL)
         {return NULL;}
     int minimo = INT_MAX;
-    while( p!= NULL)
+    while(p!= NULL)
     {
         if (p->value < minimo)
             {minimo = p->value;}
@@ -117,28 +126,14 @@ int minimo(list * l)
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
+    // Imprimimos el mínimo de la lista.
+    printf("El mínimo valor de la lista es %d.\n", minimo(l));
 
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, i+1);
-}
-
-
-/*list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%d\n", p->value);
-    p = p->next;
-}*/
-
-printf("%d\n", minimo(l));
-
-return 0;
-
+    return 0;
 }

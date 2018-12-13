@@ -1,3 +1,8 @@
+/*
+ * Problema 4. Usando una lista simplemente enlazada escribir una función
+ * void clear_list(list * l) la cual dada una lista l, remueva todos los nodos de la lista.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -97,40 +102,31 @@ int pop_back_list( list * l)
     return value;
 }
 
-//Esta es la función, básicamente tira todos los elementos usando la de arriba, esta no estoy seguro si dejarla así o hacerla por mi cuenta sin tirar los elementos
+/*
+ * Esta función remueve todos los nodos de la lista, para esto, usamos pop_back_list(l) hasta que,
+ * l->size sea 0, esto hace que la lista sea vacía.
+ */
 void clear_list(list * l)
 {
-    list_node * p = l->head;
-    while (p != NULL)
-    {
-        pop_back_list(l);
-    }
+    while (l->size > 0)
+        {pop_back_list(l);}
 }
+
 
 int main()
 {
-list * l = create_list();
+    list * l = create_list();
+    // Esto crea una lista con n elementos 1,2,...,n.
+    int n = 15;
+    for (int i = 0; i < n; ++i)
+        {push_back_list(l, i+1);}
 
-//Esto crea una lista con n elementos 0,1,2,...,n
-int n = 15;
-
-for (int i = 0; i < n; ++i)
-{
-    push_back_list(l, i+1);
-}
-
-//Si quitan este comentario, ya no imprime nada, y se revienta.
-//clear_list(l);
-
-list_node * p = l->head;
-while( p!= NULL)
-{
-//printf("%d\n", pop_front_list(l));
-//printf("%d\n", pop_back_list(l));
-    printf("%d\n", p->value);
-    p = p->next;
-}
-
-
-return 0;
+    // Removemos todos los nodos de la lista, luego comprobamos que está vacía.
+    clear_list(l);
+    list_node * p = l->head;
+    if(p == NULL)
+        {printf("La lista está vacía.\n");}
+    else
+        {printf("La lista no está vacía. %d\n",p->value);}
+    return 0;
 }
